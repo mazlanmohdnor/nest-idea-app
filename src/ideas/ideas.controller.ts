@@ -1,8 +1,8 @@
-import { IdeasService } from './ideas.service';
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { IdeaDTO } from './dto/Idea.dto';
+import { IdeasService } from './ideas.service';
 
-@Controller('ideas')
+@Controller('api/idea')
 export class IdeasController {
 
     constructor(
