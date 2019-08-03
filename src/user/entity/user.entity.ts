@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { UserRO } from 'src/user/user.model';
+import { UserRO } from 'src/user/model/user.model';
 import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('user')

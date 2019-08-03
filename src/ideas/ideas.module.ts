@@ -1,8 +1,8 @@
-import { IdeaEntity } from './ideas.entity';
 import { Module } from '@nestjs/common';
-import { IdeasService } from './ideas.service';
-import { IdeasController } from './ideas.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { IdeaEntity } from 'src/ideas/entity/ideas.entity';
+import { IdeasController } from './ideas.controller';
+import { IdeasService } from './ideas.service';
 
 @Module({
   imports: [

@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IdeaEntity } from 'src/ideas/entity/ideas.entity';
+import { IdeaModel } from 'src/ideas/model/Idea.model';
 import { Repository } from 'typeorm';
-import { IdeaDTO } from './dto/Idea.dto';
-import { IdeaEntity } from './ideas.entity';
 
 @Injectable()
 export class IdeasService {
@@ -24,13 +24,13 @@ export class IdeasService {
         return idea;
     }
     
-    async createIdea(data: IdeaDTO) {
+    async createIdea(data: IdeaModel) {
         const idea = await this.ideaRepository.create(data);
         await this.ideaRepository.save(idea);
         return idea;
     }
     
-    async updateIdea(id: string, data: Partial<IdeaDTO>) {
+    async updateIdea(id: string, data: Partial<IdeaModel>) {
         let idea = await this.ideaRepository.findOne({ where: id });
         if (!idea) {
             throw new HttpException('Not found', HttpStatus.NOT_FOUND);
