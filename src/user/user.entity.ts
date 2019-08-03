@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { UserRO } from 'src/user/user.model';
 import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('user')
@@ -21,7 +22,9 @@ export class UserEntity {
     
     private get token() {
         const { id, username } = this;
-        return jwt.sign({});
+        return jwt.sign({
+            id, username
+        }, process.env.SECRET, { expiresIn: '7d' });
     }
     
     @BeforeInsert()
@@ -29,9 +32,9 @@ export class UserEntity {
         this.password = await bcrypt.hash(this.password, 10);
     }
     
-    toResponseObject(showToken: boolean = true) {
+    toResponseObject(showToken: boolean = true): UserRO {
         const { id, created, username, token } = this;
-        const responseObject = { id, created, username, token };
+        const responseObject: UserRO = { id, created, username };
         if (showToken) {
             responseObject.token = token;
         }
