@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { HttpErrorFilter } from 'src/shared/http.error';
+import { LoggingInterceptor } from 'src/shared/logging.interceptor';
 import { environment } from './../environments/environment';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -30,6 +33,16 @@ const config: TypeOrmModuleOptions = {
     UserModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: HttpErrorFilter
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor
+    }
+  ]
 })
-export class AppModule { }
+export class AppModule {}
